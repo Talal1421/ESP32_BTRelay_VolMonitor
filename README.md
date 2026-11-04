@@ -18,7 +18,24 @@ A Bluetooth controller sends `ON` or `OFF` to the ESP32, which drives the relay 
 
 ## Results
 
-The bench photos document the assembled prototype, a lit LED load, and received commands alongside voltage readings in a serial terminal. The terminal capture shows readings around 2.9 V; a separate multimeter photo shows 2.896 V. These photos record bench testing rather than a formal accuracy measurement.
+The bench photos document the assembled prototype, a lit LED load, and Bluetooth command testing alongside voltage readings.
+
+| Voltage comparison | Value |
+|---|---:|
+| Representative ESP32 terminal reading | 2.916 V |
+| Multimeter reading | 2.896 V |
+| Difference | +0.020 V (20 mV) |
+| Relative difference, using the multimeter as reference | **+0.69%** |
+
+Relative difference = `(2.916 − 2.896) / 2.896 × 100`. This compares one representative displayed value with the meter photo; it is not an accuracy specification across the operating range.
+
+**Why three values per line?** The terminal photo shows comma-separated triples such as `2.914,2.916,2.916`. They are unlabeled, so their individual meanings cannot be recovered from the photo. The saved sketch emits one processed battery-voltage value per update to each output (USB serial and Bluetooth), not three columns. It does not identify these fields as raw, calibrated, or averaged readings; the capture reflects a different diagnostic output format. There is no evidence that the terminal software automatically tripled a single reading.
+
+The values near 2.916 V are also not the nominal voltage of the three-cell pack. The saved sketch scales the measured divider voltage by 4.2 to estimate battery voltage; the photo does not identify the measurement point or scaling used in that diagnostic output.
+
+**Why the difference?** Possible contributors include ADC reference/calibration error, nonlinearity, electrical noise, and resistor tolerances if divider scaling is involved. Averaging reduces fluctuations but does not remove systematic error. See [Espressif’s ADC calibration guidance](https://docs.espressif.com/projects/esp-idf/en/v4.4.4/esp32/api-reference/peripherals/adc.html).
+
+A voltmeter draws a small input current because its input resistance is finite. That can lower the voltage at a high-resistance divider node: this is **meter loading**, rather than the probes preventing a “full current” reading. Voltage is measured across two points. Whether loading explains this 20 mV difference depends on the divider resistance and measurement conditions, which are not established by these photos. [Fluke describes this loading effect](https://assets.fluke.com/manuals/87______umeng0800.pdf).
 
 <details open>
 <summary><strong>Prototype and test photos</strong></summary>
@@ -30,6 +47,15 @@ The bench photos document the assembled prototype, a lit LED load, and received 
 | <img src="images/LED.jpeg" alt="Illuminated LED load during bench testing" width="400"> | <img src="images/voltmeter.jpeg" alt="Multimeter displaying 2.896 volts" width="400"> |
 
 </details>
+
+## Components
+
+| ESP32 controller | Relay module | Battery pack |
+|:---:|:---:|:---:|
+| <img src="images/esp32.jpeg" alt="NodeMCU board labeled ESP-32S" width="280"> | <img src="images/relay.jpeg" alt="Relay module marked SRD-05VDC-SL-C" width="280"> | <img src="images/battery.jpeg" alt="Three cells labeled Li-ion rechargeable, 18650, 3.7 volts" width="280"> |
+| NodeMCU development board labeled **ESP-32S** | **SRD-05VDC-SL-C** relay module | **3 × 3.7 V 18650 rechargeable lithium-ion cells** |
+
+The battery chemistry is confirmed by the printed **“Li-ion Rechargeable Battery”** labels, not just by rechargeability. The three-cell series arrangement gives 11.1 V nominal; the sketch is designed around a 12.6 V maximum pack voltage. The prototype also uses a resistor divider, breadboard, jumper wires, and an LED load with a series resistor.
 
 ## Approach
 
