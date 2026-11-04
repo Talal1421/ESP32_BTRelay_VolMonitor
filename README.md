@@ -23,7 +23,7 @@ The prototype demonstrates Bluetooth load control and voltage monitoring. With t
 
 | Voltage comparison | Value |
 |---|---:|
-| Representative ESP32 terminal reading | 2.916 V |
+| ESP32 terminal reading | 2.916 V |
 | Multimeter reading | 2.896 V |
 | Difference | +0.020 V (20 mV) |
 | Relative difference, using the multimeter as reference | **+0.69%** |
@@ -32,7 +32,6 @@ The earlier, unscaled comparison gives `(2.916 − 2.896) / 2.896 × 100 ≈ 0.6
 
 I attributed the 0.69% reading difference to **meter loading**: connecting the meter makes it part of the circuit, and its finite input resistance can slightly lower the divider-output voltage. 
 
-Both terminal captures show three unlabeled diagnostic values per line; their individual meanings are unconfirmed. The saved sketch prints one processed battery-voltage value per update to each output.
 
 <details open>
 <summary><strong>Prototype and test photos</strong></summary>
@@ -47,10 +46,10 @@ Both terminal captures show three unlabeled diagnostic values per line; their in
 
 ## Components
 
-| ESP32 controller | Relay module | Battery pack | Demonstration load |
+| ESP32 controller | Relay module | Battery pack | Load |
 |:---:|:---:|:---:|:---:|
 | <img src="images/esp32.jpeg" alt="NodeMCU board labeled ESP-32S" width="210"> | <img src="images/relay.jpeg" alt="Relay module marked SRD-05VDC-SL-C" width="210"> | <img src="images/battery.jpeg" alt="Three 3.7 V rechargeable lithium-ion cells" width="210"> | <img src="images/LED.jpeg" alt="LED used as the relay-controlled demonstration load" width="210"> |
-| **ESP-32S** NodeMCU development board | **SRD-05VDC-SL-C** relay module | **3 × 3.7 V 18650 Li-ion cells** | **LED with series resistor** |
+| **ESP-32S** NodeMCU development board | **SRD-05VDC-SL-C** relay module | **3 × 3.7 V 18650 Li-ion cells** | **LED(but could be anything)** |
 
 The three-cell pack is 11.1 V nominal and 12.6 V fully charged. A resistor divider, breadboard, and jumper wires complete the prototype.
 
