@@ -36,11 +36,11 @@ I attributed the 0.69% reading difference to **meter loading**: connecting the m
 <details open>
 <summary><strong>Prototype and test photos</strong></summary>
 
-**Relay switched the LED on wirelessly through bluetooth command**
+| Relay switched the LED on wirelessly through bluetooth command |
+|:---:|
+| <img src="images/LED.jpeg" alt="Relay switched the LED on wirelessly through bluetooth command" width="400"> |
 
-<img src="images/LED.jpeg" alt="Relay switched the LED on wirelessly through bluetooth command" width="400">
-
-| Before voltage scaling | After voltage scaling |
+| Readings Before voltage scaling | Readings After voltage scaling |
 |:---:|:---:|
 | <img src="images/readings.jpeg" alt="Earlier diagnostic voltage readings before battery scaling" width="400"> | <img src="images/reading_after_scaling.jpeg" alt="Terminal readings around 12.25 volts after battery-voltage scaling" width="400"> |
 | **Breadboard prototype** | **Multimeter reading** |
